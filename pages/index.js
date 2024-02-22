@@ -5,7 +5,7 @@ import fetcher from "../libs/fetch";
 
 import Check from "../components/Check";
 
-import { XIcon } from "@heroicons/react/outline";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
     const { data: checks, error: errorChecks } = useSWR(
@@ -91,7 +91,7 @@ export default function Home() {
                 {errorChecks && (
                     <div className="text-center m-8">
                         <div className="bg-red-600 h-16 w-16 p-3 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <XIcon className="w-full text-white" />
+                            <XCircleIcon className="w-full text-white" />
                         </div>
                         <h1 className="text-red-500 font-bold text-xl">
                             There was an error fetching the API

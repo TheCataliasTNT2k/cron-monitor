@@ -1,8 +1,5 @@
-import { CheckIcon } from "@heroicons/react/outline";
-import { XIcon } from "@heroicons/react/outline";
-import { PauseIcon } from "@heroicons/react/outline";
-import { ExclamationCircleIcon } from "@heroicons/react/outline";
-import { ClockIcon } from "@heroicons/react/solid";
+import { CheckIcon, XCircleIcon, PauseIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 import moment from "moment";
 
@@ -32,7 +29,7 @@ const Check = ({ name, status, last_ping, tz, last_duration }) => {
                 {
                     {
                         up: <CheckIcon className="h-5 w-5 text-white" />,
-                        down: <XIcon className="h-5 w-5 text-white" />,
+                        down: <XCircleIcon className="h-5 w-5 text-white" />,
                         paused: <PauseIcon className="h-5 w-5 text-white" />,
                         grace: (
                             <ExclamationCircleIcon className="h-5 w-5 text-white" />
