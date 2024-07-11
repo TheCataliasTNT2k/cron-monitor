@@ -1,4 +1,4 @@
-import { CheckIcon, XCircleIcon, PauseIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, XCircleIcon, PauseIcon, ExclamationCircleIcon, ArrowUpCircle } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/solid";
 
 import moment from "moment";
@@ -15,6 +15,7 @@ const Check = ({ name, status, last_ping, tz, last_duration }) => {
                         down: "bg-red-600",
                         paused: "bg-gray-600",
                         grace: "bg-yellow-600",
+                        starting: "bg-yellow-600",
                     }[status]
                 }`}
                 title={
@@ -23,6 +24,7 @@ const Check = ({ name, status, last_ping, tz, last_duration }) => {
                         down: "Down",
                         paused: "Paused",
                         grace: "Grace",
+                        grace: "Starting",
                     }[status]
                 }
             >
@@ -33,6 +35,9 @@ const Check = ({ name, status, last_ping, tz, last_duration }) => {
                         paused: <PauseIcon className="h-5 w-5 text-white" />,
                         grace: (
                             <ExclamationCircleIcon className="h-5 w-5 text-white" />
+                        ),
+                        starting: (
+                            <ArrowUpCircle className="h-5 w-5 text-white" />
                         ),
                     }[status]
                 }
@@ -62,6 +67,9 @@ const Check = ({ name, status, last_ping, tz, last_duration }) => {
                 <div className="absolute inset-0 border-2 border-gray-700 rounded-lg z-0"></div>
             )}
             {status == "grace" && (
+                <div className="absolute inset-0 border-2 border-yellow-800 rounded-lg z-0"></div>
+            )}
+            {status == "starting" && (
                 <div className="absolute inset-0 border-2 border-yellow-800 rounded-lg z-0"></div>
             )}
         </div>

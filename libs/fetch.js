@@ -1,5 +1,5 @@
 export default async function fetcher(...args) {
-    args[0] = "https://healthchecks.io/api" + args[0];
+    args[0] = process.env.BASE_URL + args[0];
 
     args[1] = {
         ...args[1],
