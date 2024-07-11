@@ -7,11 +7,36 @@ import Check from "../components/Check";
 
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
+// chatgpt
+// Function to sort the map based on the key arrays, ignoring the order within key arrays
+function sortMapByKeyArrays(map) {
+    // Convert map entries to an array and sort it
+    const sortedEntries = [...map.entries()].sort((a, b) => {
+      // a[0] and b[0] are the key arrays
+      const keyA = [...a[0]].sort();
+      const keyB = [...b[0]].sort();
+      
+      // Compare the key arrays
+      for (let i = 0; i < Math.min(keyA.length, keyB.length); i++) {
+        if (keyA[i] < keyB[i]) return -1;
+        if (keyA[i] > keyB[i]) return 1;
+      }
+  
+      // If the common length part is equal, compare lengths
+      return keyA.length - keyB.length;
+    });
+  
+    // Create a new map from the sorted entries with sorted key arrays
+    const sortedMap = new Map(sortedEntries.map(([key, value]) => [[...key].sort(), value]));
+  
+    return sortedMap;
+  }  
+
 export default function Home() {
     const { data: checks, error: errorChecks } = useSWR(
         "/v1/checks/",
         fetcher,
-        { refreshInterval: 30000, refreshWhenHidden: true }
+        { refreshInterval: 10000, refreshWhenHidden: true }
     );
 
     let checksOrdered = {};
@@ -21,7 +46,7 @@ export default function Home() {
     if (checks) {
         // Sort errors first
         checks.checks.sort(function (a) {
-            return a.status == "down" ? -1 : 0;
+            return a.status == "down" ? -10 : a.status == "grace" ? -9 : a.status == "starting" ? -8 : 0;
         });
 
         checks.checks.forEach((check) => {
@@ -35,6 +60,7 @@ export default function Home() {
                     down: 0,
                     paused: 0,
                     grace: 0,
+                    starting: 0,
                 };
 
                 checksOrdered[tagsArray] = {
@@ -47,6 +73,7 @@ export default function Home() {
             }
             checksOrdered[tagsArray].status[check.status]++;
         });
+        checksOrdered = sortMapByKeyArrays(checksOrdered);
     }
 
     return (
